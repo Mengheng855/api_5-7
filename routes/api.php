@@ -22,4 +22,5 @@ Route::controller(RoomController::class)->group(function(){
     Route::get('/get','get');
     Route::post('/add','add');
     Route::delete('/delete/{id}','delete');
+    Route::post('/edit/{id}','edit');
 });
