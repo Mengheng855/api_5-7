@@ -1,11 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
 class UserController extends Controller
 {
     public function login(){
@@ -26,6 +24,26 @@ class UserController extends Controller
             return redirect('/');
         }else{
             return redirect('/register');
+        }
+    }
+    public function checkLogin(Request $req){
+        $email=$req->email;
+        $password=$req->password;
+        if(Auth::attempt(['email'=>$email,'password'=>$password])){
+            if(Auth::user()->role==0){
+                return redirect('/user');
+            }else{
+                return redirect('/admin');
+            }  
+        }else{
+            return redirect('/');
+        }
+    }
+    public function admin(){
+        if(Auth::user()->role==1){
+            return view('admin.admin');
+        }else{
+            return redirect('/user');
         }
     }
 }

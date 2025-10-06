@@ -14,11 +14,15 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::middleware(['auth'])->group(function(){
-    Route::get('/user',[UserController::class,'user'])->name('user');
+Route::middleware('auth')->group(function(){
+    Route::get('/admin',[UserController::class,'admin']);
+    Route::get('/user',function(){
+        return view('user.user');
+    });
 });
 Route::controller(UserController::class)->group(function(){
     Route::get('/','login')->name('login');
     Route::get('/register','register')->name('register');
     Route::post('/add','add')->name('add');
+    Route::post('/checkLogin','checkLogin')->name('checkLogin');
 });

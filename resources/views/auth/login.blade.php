@@ -9,7 +9,7 @@
 <body>
     <div class="container p-5 mt-5 shadow">
         <h1>Login</h1>
-        <form action="{{route('login')}}" method="post">
+        <form action="{{route('checkLogin')}}" method="post">
             @csrf
             <div class="form-group">
                 <label for="" class="form-label">Email</label>
