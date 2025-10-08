@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - SoundWave Pro</title>
+  <title>Login</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -124,7 +124,7 @@
 
         <p class="mt-8 text-center text-sm text-slate-600">
           Don't have an account? 
-          <a href="{{url('/register')}}" class="font-semibold text-slate-900 hover:text-slate-700 transition-colors">
+          <a href="{{url('/auth/register')}}" class="font-semibold text-slate-900 hover:text-slate-700 transition-colors">
             Sign up for free
           </a>
         </p>

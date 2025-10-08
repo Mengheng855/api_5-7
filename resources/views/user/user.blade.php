@@ -44,10 +44,10 @@
             </div>
             
             <div class="flex items-center gap-3">
-            <a href="{{url('/login')}}" class="text-sm text-slate-600 hover:text-slate-900 transition-colors px-4 py-2">
+            <a href="{{url('/auth/login')}}" class="text-sm text-slate-600 hover:text-slate-900 transition-colors px-4 py-2">
                 Login
             </a>
-            <a href="{{url('/register')}}" class="bg-slate-900 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors">
+            <a href="{{url('/auth/register')}}" class="bg-slate-900 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors">
                 Sign Up
             </a>
             </div>
@@ -73,162 +73,64 @@
         </div>
         </div>
     </section>
-    <section id="products" class="py-12 px-6">
-        <div class="max-w-7xl mx-auto">
+   <div class="max-w-7xl mx-auto py-16 px-6">
+        <h1 class="text-4xl font-bold text-center mb-12">Our Products</h1>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            
-    
-            <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover-lift">
-            <div class="aspect-square bg-slate-100 flex items-center justify-center overflow-hidden">
-                <img src="/placeholder.svg?height=400&width=400" alt="Elevate Pro Headphones" class="w-full h-full object-cover">
-            </div>
-            <div class="p-6">
-                <div class="flex items-start justify-between mb-2">
-                <h3 class="text-xl font-semibold text-slate-900">Elevate Pro</h3>
-                <span class="text-lg font-bold text-slate-900">$299</span>
-                </div>
-                <p class="text-sm text-slate-500 mb-4">Wireless Headphones</p>
-                <p class="text-slate-600 text-sm mb-4 leading-relaxed">
-                Premium over-ear headphones with active noise cancellation and 40-hour battery life.
-                </p>
-                <div class="flex gap-2 mb-4">
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">ANC</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">40h Battery</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">Bluetooth 5.3</span>
-                </div>
-                <button class="w-full bg-slate-900 text-white py-3 rounded-lg font-medium hover:bg-slate-800 transition-colors">
-                Add to Cart
-                </button>
-            </div>
-            </div>
+            {{-- ✅ Loop through products --}}
+            @php
+                $products = [
+                    [
+                        'name' => 'Elevate Pro',
+                        'price' => 299,
+                        'type' => 'Wireless Headphones',
+                        'desc' => 'Premium over-ear headphones with active noise cancellation and 40-hour battery life.',
+                        'image' => 'https://images.unsplash.com/photo-1619695860852-14e47e5dfc6c?auto=format&fit=crop&w=600&q=80'
+                    ],
+                    [
+                        'name' => 'Elevate Buds',
+                        'price' => 149,
+                        'type' => 'True Wireless Earbuds',
+                        'desc' => 'Compact earbuds with crystal-clear sound and seamless connectivity.',
+                        'image' => 'https://images.unsplash.com/photo-1585386959984-a41552231693?auto=format&fit=crop&w=600&q=80'
+                    ],
+                    [
+                        'name' => 'Elevate Wave',
+                        'price' => 199,
+                        'type' => 'Portable Speaker',
+                        'desc' => 'Powerful portable speaker with 360° sound and waterproof design.',
+                        'image' => 'https://images.unsplash.com/photo-1587202372775-98927b7e4a9b?auto=format&fit=crop&w=600&q=80'
+                    ],
+                    [
+                        'name' => 'Elevate Lite',
+                        'price' => 129,
+                        'type' => 'On-Ear Headphones',
+                        'desc' => 'Lightweight and comfortable on-ear headphones perfect for everyday listening.',
+                        'image' => 'https://images.unsplash.com/photo-1598300058889-2f52c8b9b9ad?auto=format&fit=crop&w=600&q=80'
+                    ],
+                ];
+            @endphp
 
-    
-            <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover-lift">
-            <div class="aspect-square bg-slate-100 flex items-center justify-center overflow-hidden">
-                <img src="/placeholder.svg?height=400&width=400" alt="Elevate Buds" class="w-full h-full object-cover">
-            </div>
-            <div class="p-6">
-                <div class="flex items-start justify-between mb-2">
-                <h3 class="text-xl font-semibold text-slate-900">Elevate Buds</h3>
-                <span class="text-lg font-bold text-slate-900">$149</span>
+            @foreach ($products as $product)
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover-lift">
+                    <div class="aspect-square bg-slate-100 flex items-center justify-center overflow-hidden">
+                        <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-2">
+                            <h3 class="text-xl font-semibold text-slate-900">{{ $product['name'] }}</h3>
+                            <span class="text-lg font-bold text-slate-900">${{ $product['price'] }}</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-4">{{ $product['type'] }}</p>
+                        <p class="text-slate-600 text-sm mb-4 leading-relaxed">{{ $product['desc'] }}</p>
+                        <button class="w-full bg-slate-900 text-white py-3 rounded-lg font-medium hover:bg-slate-800 transition-colors">
+                            Add to Cart
+                        </button>
+                    </div>
                 </div>
-                <p class="text-sm text-slate-500 mb-4">True Wireless Earbuds</p>
-                <p class="text-slate-600 text-sm mb-4 leading-relaxed">
-                Compact earbuds with crystal-clear sound and seamless connectivity for on-the-go listening.
-                </p>
-                <div class="flex gap-2 mb-4">
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">IPX4</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">24h Total</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">Touch Control</span>
-                </div>
-                <button class="w-full bg-slate-900 text-white py-3 rounded-lg font-medium hover:bg-slate-800 transition-colors">
-                Add to Cart
-                </button>
-            </div>
-            </div>
-
-        
-            <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover-lift">
-            <div class="aspect-square bg-slate-100 flex items-center justify-center overflow-hidden">
-                <img src="/placeholder.svg?height=400&width=400" alt="Elevate Wave" class="w-full h-full object-cover">
-            </div>
-            <div class="p-6">
-                <div class="flex items-start justify-between mb-2">
-                <h3 class="text-xl font-semibold text-slate-900">Elevate Wave</h3>
-                <span class="text-lg font-bold text-slate-900">$199</span>
-                </div>
-                <p class="text-sm text-slate-500 mb-4">Portable Speaker</p>
-                <p class="text-slate-600 text-sm mb-4 leading-relaxed">
-                Powerful portable speaker with 360° sound and waterproof design for any adventure.
-                </p>
-                <div class="flex gap-2 mb-4">
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">Waterproof</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">20h Battery</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">360° Sound</span>
-                </div>
-                <button class="w-full bg-slate-900 text-white py-3 rounded-lg font-medium hover:bg-slate-800 transition-colors">
-                Add to Cart
-                </button>
-            </div>
-            </div>
-
-        
-            <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover-lift">
-            <div class="aspect-square bg-slate-100 flex items-center justify-center overflow-hidden">
-                <img src="/placeholder.svg?height=400&width=400" alt="Elevate Lite" class="w-full h-full object-cover">
-            </div>
-            <div class="p-6">
-                <div class="flex items-start justify-between mb-2">
-                <h3 class="text-xl font-semibold text-slate-900">Elevate Lite</h3>
-                <span class="text-lg font-bold text-slate-900">$129</span>
-                </div>
-                <p class="text-sm text-slate-500 mb-4">On-Ear Headphones</p>
-                <p class="text-slate-600 text-sm mb-4 leading-relaxed">
-                Lightweight and comfortable on-ear headphones perfect for everyday listening.
-                </p>
-                <div class="flex gap-2 mb-4">
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">Lightweight</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">30h Battery</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">Foldable</span>
-                </div>
-                <button class="w-full bg-slate-900 text-white py-3 rounded-lg font-medium hover:bg-slate-800 transition-colors">
-                Add to Cart
-                </button>
-            </div>
-            </div>
-
-            <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover-lift">
-            <div class="aspect-square bg-slate-100 flex items-center justify-center overflow-hidden">
-                <img src="/placeholder.svg?height=400&width=400" alt="Elevate Sport" class="w-full h-full object-cover">
-            </div>
-            <div class="p-6">
-                <div class="flex items-start justify-between mb-2">
-                <h3 class="text-xl font-semibold text-slate-900">Elevate Sport</h3>
-                <span class="text-lg font-bold text-slate-900">$179</span>
-                </div>
-                <p class="text-sm text-slate-500 mb-4">Sport Earbuds</p>
-                <p class="text-slate-600 text-sm mb-4 leading-relaxed">
-                Secure-fit earbuds designed for workouts with sweat resistance and powerful bass.
-                </p>
-                <div class="flex gap-2 mb-4">
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">IPX7</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">12h Battery</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">Secure Fit</span>
-                </div>
-                <button class="w-full bg-slate-900 text-white py-3 rounded-lg font-medium hover:bg-slate-800 transition-colors">
-                Add to Cart
-                </button>
-            </div>
-            </div>
-
-
-            <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover-lift">
-            <div class="aspect-square bg-slate-100 flex items-center justify-center overflow-hidden">
-                <img src="/placeholder.svg?height=400&width=400" alt="Elevate Home" class="w-full h-full object-cover">
-            </div>
-            <div class="p-6">
-                <div class="flex items-start justify-between mb-2">
-                <h3 class="text-xl font-semibold text-slate-900">Elevate Home</h3>
-                <span class="text-lg font-bold text-slate-900">$249</span>
-                </div>
-                <p class="text-sm text-slate-500 mb-4">Smart Speaker</p>
-                <p class="text-slate-600 text-sm mb-4 leading-relaxed">
-                Voice-controlled smart speaker with premium sound quality for your connected home.
-                </p>
-                <div class="flex gap-2 mb-4">
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">Voice Control</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">Multi-Room</span>
-                <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">Wi-Fi</span>
-                </div>
-                <button class="w-full bg-slate-900 text-white py-3 rounded-lg font-medium hover:bg-slate-800 transition-colors">
-                Add to Cart
-                </button>
-            </div>
-            </div>
-
+            @endforeach
         </div>
-        </div>
-    </section>
+    </div>
 
 
     <section id="about" class="py-24 px-6 bg-white">

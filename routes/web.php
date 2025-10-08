@@ -13,24 +13,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard/admin', function () {
-    return view('dashboard.admin');
-});
-Route::get('/dashboard/admin', function () {
-    return view('dashboard.admin');
-});
-Route::get('/dashboard/product', function () {
-    return view('dashboard.product');
-});
-Route::get('/dashboard/user', function () {
-    return view('dashboard.user');
-});
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/', function () {
     return view('user.user');
 });
-Route::get('/auth/login', function () {
-    return view('auth.login');
-});
-Route::get('/auth/register', function () {
-    return view('auth.register');
+// Route::middleware('auth')->group(function () {
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/admin', function () {
+            return view('dashboard.admin');
+        });
+
+        Route::get('/product', function () {
+            return view('dashboard.product');
+        });
+
+        Route::get('/user', function () {
+            return view('dashboard.user');
+        });
+    });
+// });
+
+Route::prefix('auth')->group(function () {
+    Route::get('/login', function () {
+        return view('auth.login');
+    })->name('login');
+
+    Route::get('/register', function () {
+        return view('auth.register');
+    });
 });

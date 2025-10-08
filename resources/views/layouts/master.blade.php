@@ -35,10 +35,10 @@
     <!-- Main Content -->
     <div class="main-content">
         <nav class="top-nav">
-            <div class="d-flex  align-items-center justify-content-between px-3 py-2 bg-dark text-white">
+            <div class="d-flex gap-2 align-items-center justify-content-between px-3 py-2  text-white">
                 <div class="d-flex align-items-center gap-2">
                     <i class="bi bi-list fs-4 d-lg-none"></i>
-                    <input type="text" class="form-control form-control-sm" placeholder="Search...">
+                    <input type="text" class="form-control rounded-3 form-control-sm" placeholder="Search...">
                 </div>
                 <div class="d-flex align-items-center gap-3">
                     <i class="bi bi-bell"></i>
@@ -62,7 +62,7 @@
 
         <!-- Dynamic Page Content -->
         <div class="content-area p-4">
-                            
+            @yield('content')     
         </div>
     </div>
 
