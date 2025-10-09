@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,28 +24,25 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('user.user');
 });
-// Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::get('/admin', function () {
             return view('dashboard.admin');
         });
-
         Route::get('/product', function () {
             return view('dashboard.product');
         });
-
         Route::get('/user', function () {
             return view('dashboard.user');
         });
     });
-// });
-
-Route::prefix('auth')->group(function () {
-    Route::get('/login', function () {
-        return view('auth.login');
-    })->name('login');
-
-    Route::get('/register', function () {
-        return view('auth.register');
+});
+Route::controller(UserController::class)->group(function(){
+    Route::prefix('auth')->group(function () {
+        Route::get('/register','showRegister');
+        Route::post('/addUser','addUser');
+        Route::get('/showLogin','showLogin')->name('login');
+        Route::post('/login','login');
     });
 });
+

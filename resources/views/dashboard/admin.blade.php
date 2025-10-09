@@ -5,7 +5,6 @@
 @section('content')
 <div class="container-fluid">
     <h2 class="mb-4">Dashboard Overview</h2>
-
     <div class="row g-4">
         <div class="col-md-3">
             <div class="stat-card">

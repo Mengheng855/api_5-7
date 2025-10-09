@@ -44,7 +44,7 @@
             </div>
             
             <div class="flex items-center gap-3">
-            <a href="{{url('/auth/login')}}" class="text-sm text-slate-600 hover:text-slate-900 transition-colors px-4 py-2">
+            <a href="{{url('/auth/showLogin')}}" class="text-sm text-slate-600 hover:text-slate-900 transition-colors px-4 py-2">
                 Login
             </a>
             <a href="{{url('/auth/register')}}" class="bg-slate-900 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors">

@@ -39,7 +39,8 @@
           <p class="text-slate-600">Sign in to your account to continue</p>
         </div>
 
-        <form class="space-y-6">
+        <form class="space-y-6" action="{{url('/auth/login')}}" method="post">
+          @csrf
           <div>
             <label for="email" class="block text-sm font-semibold text-slate-900 mb-2">
               Email Address

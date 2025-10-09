@@ -41,16 +41,17 @@
                     <p class="text-slate-600">Join us and experience premium sound</p>
                 </div>
 
-                <form class="space-y-6">
+                <form class="space-y-6" action="{{url('/auth/addUser')}}" method="post">
+                    @csrf
                     <div>
                         <label for="fullname" class="block text-sm font-semibold text-slate-900 mb-2">
                             Full Name
                         </label>
                         <input
                             type="text"
-                            id="fullname"
-                            name="fullname"
-                            required
+                            id="name"
+                            name="name"
+                            
                             class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
                             placeholder="John Doe">
                     </div>
@@ -63,7 +64,7 @@
                             type="email"
                             id="email"
                             name="email"
-                            required
+                            
                             class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
                             placeholder="you@example.com">
                     </div>
@@ -76,30 +77,19 @@
                             type="password"
                             id="password"
                             name="password"
-                            required
+                            
                             class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
                             placeholder="Create a strong password">
                     </div>
 
-                    <div>
-                        <label for="confirm-password" class="block text-sm font-semibold text-slate-900 mb-2">
-                            Confirm Password
-                        </label>
-                        <input
-                            type="password"
-                            id="confirm-password"
-                            name="confirm-password"
-                            required
-                            class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
-                            placeholder="Confirm your password">
-                    </div>
+                    
 
                     <div class="flex items-start">
                         <input
                             type="checkbox"
                             id="terms"
                             name="terms"
-                            required
+                            
                             class="w-4 h-4 mt-1 text-slate-900 border-slate-300 rounded focus:ring-slate-900">
                         <label for="terms" class="ml-2 text-sm text-slate-600 leading-relaxed">
                             I agree to the <a href="#" class="font-semibold text-slate-900 hover:text-slate-700">Terms of Service</a> and <a href="#" class="font-semibold text-slate-900 hover:text-slate-700">Privacy Policy</a>
@@ -144,7 +134,7 @@
 
                 <p class="mt-8 text-center text-sm text-slate-600">
                     Already have an account?
-                    <a href="{{url('/auth/login')}}" class="font-semibold text-slate-900 hover:text-slate-700 transition-colors">
+                    <a href="{{url('/auth/showLogin')}}" class="font-semibold text-slate-900 hover:text-slate-700 transition-colors">
                         Sign in
                     </a>
                 </p>
