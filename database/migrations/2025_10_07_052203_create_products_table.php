@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title',50);
             $table->string('sub_title',50);
             $table->decimal('price',10,2);
-            $table->text('desciption');
+            $table->text('description');
             $table->longText('image');
             $table->timestamps();
         });

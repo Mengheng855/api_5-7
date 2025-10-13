@@ -32,7 +32,7 @@
         </div>
     </nav>
 
-
+    
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full">
             <div class="bg-white rounded-2xl shadow-lg p-8">
@@ -51,7 +51,6 @@
                             type="text"
                             id="name"
                             name="name"
-                            
                             class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
                             placeholder="John Doe">
                     </div>
@@ -64,11 +63,9 @@
                             type="email"
                             id="email"
                             name="email"
-                            
                             class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
                             placeholder="you@example.com">
                     </div>
-
                     <div>
                         <label for="password" class="block text-sm font-semibold text-slate-900 mb-2">
                             Password
@@ -81,15 +78,11 @@
                             class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
                             placeholder="Create a strong password">
                     </div>
-
-                    
-
                     <div class="flex items-start">
                         <input
                             type="checkbox"
                             id="terms"
                             name="terms"
-                            
                             class="w-4 h-4 mt-1 text-slate-900 border-slate-300 rounded focus:ring-slate-900">
                         <label for="terms" class="ml-2 text-sm text-slate-600 leading-relaxed">
                             I agree to the <a href="#" class="font-semibold text-slate-900 hover:text-slate-700">Terms of Service</a> and <a href="#" class="font-semibold text-slate-900 hover:text-slate-700">Privacy Policy</a>

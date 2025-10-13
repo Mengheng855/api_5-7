@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,12 +30,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin', function () {
             return view('dashboard.admin');
         });
-        Route::get('/product', function () {
-            return view('dashboard.product');
+        Route::controller(ProductController::class)->group(function(){
+            Route::get('/product','product');
+            Route::post('/addProduct','addProduct');
         });
-        Route::get('/user', function () {
-            return view('dashboard.user');
-        });
+        
     });
 });
 Route::controller(UserController::class)->group(function(){
