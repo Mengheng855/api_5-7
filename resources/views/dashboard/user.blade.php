@@ -1,7 +1,5 @@
 @extends('layouts.master')
-
 @section('title', 'Admin Dashboard - Users')
-
 @section('content')
 <div class="mb-4">
     <h2 class="mb-1">Dashboard Overview</h2>
@@ -19,20 +17,31 @@
                 <table class="table table-dark table-hover mb-0">
                     <thead>
                         <tr>
-                            <th>Order ID</th>
-                            <th>Customer</th>
-                            <th>Product</th>
-                            <th>Amount</th>
-                            <th>Status</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($data as $users)
                         <tr>
-                            <td>#ORD-2458</td>
-                            <td>John Smith</td>
-                            <!-- preserved rows -->
+                            <td>{{$users->id}}</td>
+                            <td>{{$users->name}}</td>
+                            <td>{{$users->email}}</td>
+                            <td>{{$users->role}}</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <form action="{{url('/dashboard/deleteUser/'.$users->id.'')}}" method="post">
+                                        @csrf
+                                        <button class="btn btn-danger" type="submit"  onclick="return confirm('jg lub men?')">Delete</button>
+                                    </form>
+                                    <button class="btn btn-warning" type="submit">Edit</button>
+                                </div>
+                            </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -45,50 +54,28 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg rounded-4">
-                <form id="productForm" method="POST" action="" enctype="multipart/form-data">
+                <form id="productForm" method="POST" action="{{url('/dashboard/addUsers')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header border-0 bg-dark text-white rounded-top-4 px-4 py-3">
                         <h5 class="modal-title fw-bold" id="exampleModalLabel">
-                            <i class="bi bi-box-seam me-2"></i> Add Product
+                            <i class="bi bi-box-seam me-2"></i> Add User
                         </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body px-4 py-4">
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="name" class="form-label fw-semibold">Product Name</label>
+                            <div class="col-md-12">
+                                <label for="name" class="form-label fw-semibold text-dark">Name</label>
                                 <input type="text" class="form-control form-control-lg rounded-3" id="name" name="name" placeholder="Enter product name" required>
                             </div>
-                            <div class="col-md-6">
-                                <label for="sku" class="form-label fw-semibold">SKU</label>
-                                <input type="text" class="form-control form-control-lg rounded-3" id="sku" name="sku" placeholder="Stock keeping unit">
+                            <div class="col-md-12">
+                                <label for="sku" class="form-label fw-semibold text-dark">Email</label>
+                                <input type="email" class="form-control form-control-lg rounded-3" id="email" name="email" placeholder="Enter product email">
                             </div>
-                            <div class="col-md-4">
-                                <label for="price" class="form-label fw-semibold">Price</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">$</span>
-                                    <input type="number" step="0.01" class="form-control form-control-lg rounded-end-3" id="price" name="price" placeholder="0.00" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="stock" class="form-label fw-semibold">Stock</label>
-                                <input type="number" class="form-control form-control-lg rounded-3" id="stock" name="stock" placeholder="Quantity" value="0">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="status" class="form-label fw-semibold">Status</label>
-                                <select class="form-select form-select-lg rounded-3" id="status" name="status">
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label for="description" class="form-label fw-semibold">Description</label>
-                                <textarea class="form-control form-control-lg rounded-3" id="description" name="description" rows="4" placeholder="Short description"></textarea>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="image" class="form-label fw-semibold">Image</label>
-                                <input class="form-control form-control-lg rounded-3" type="file" id="image" name="image" accept="image/*">
+                            <div class="col-md-12">
+                                <label for="sku" class="form-label fw-semibold text-dark">Password</label>
+                                <input type="password" class="form-control form-control-lg rounded-3" id="password" name="password" placeholder="Enter product password">
                             </div>
                         </div>
                     </div>
@@ -140,87 +127,8 @@
 
                 if (!saveBtn || !form || !modalEl) return;
 
-                // helper: get bootstrap modal instance or create one (Bootstrap 5.2+ provides getOrCreateInstance)
-                function getModalInstance() {
-                    if (window.bootstrap && bootstrap.Modal) {
-                        if (typeof bootstrap.Modal.getOrCreateInstance === 'function') {
-                            return bootstrap.Modal.getOrCreateInstance(modalEl);
-                        }
-                        return bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
-                    }
-                    return null;
-                }
 
-                saveBtn.addEventListener('click', function(e) {
-                    // disable button to prevent double submit
-                    saveBtn.disabled = true;
 
-                    // basic client-side validation example
-                    if (!form.checkValidity()) {
-                        form.reportValidity();
-                        saveBtn.disabled = false;
-                        return;
-                    }
-
-                    // If action is '#', just close modal (no server submit)
-                    var action = form.getAttribute('action') || '#';
-                    if (action === '#' || action.trim() === '') {
-                        var inst = getModalInstance();
-                        if (inst) {
-                            try {
-                                inst.hide();
-                            } catch (err) {
-                                // fallback: remove show class and backdrop if hide fails
-                                modalEl.classList.remove('show');
-                                modalEl.style.display = 'none';
-                                var backdrops = document.querySelectorAll('.modal-backdrop');
-                                backdrops.forEach(function(b) {
-                                    b.parentNode && b.parentNode.removeChild(b);
-                                });
-                            }
-                        } else {
-                            // fallback manual hide
-                            modalEl.classList.remove('show');
-                            modalEl.style.display = 'none';
-                            var backdrops = document.querySelectorAll('.modal-backdrop');
-                            backdrops.forEach(function(b) {
-                                b.parentNode && b.parentNode.removeChild(b);
-                            });
-                        }
-                        saveBtn.disabled = false;
-                        return;
-                    }
-
-                    // Submit via fetch so we can programmatically hide modal on success
-                    var formData = new FormData(form);
-
-                    fetch(action, {
-                        method: form.getAttribute('method') || 'POST',
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        body: formData,
-                        credentials: 'same-origin'
-                    }).then(function(res) {
-                        if (res.ok) return res.json().catch(function() {
-                            return {
-                                ok: true
-                            };
-                        });
-                        throw new Error('Network response was not ok');
-                    }).then(function(data) {
-                        // You can show success message here or update the table via DOM
-                        var inst = getModalInstance();
-                        if (inst) inst.hide();
-                        // optionally reload to show new product
-                        // location.reload();
-                    }).catch(function(err) {
-                        console.error(err);
-                        alert('Unable to save product. Please try again.');
-                    }).finally(function() {
-                        saveBtn.disabled = false;
-                    });
-                });
             });
         })();
     </script>

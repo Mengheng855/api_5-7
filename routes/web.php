@@ -30,8 +30,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin', function () {
             return view('dashboard.admin');
         });
-        Route::get('/user', function () {
-            return view('dashboard.user');
+        Route::controller(UserController::class)->group(function(){
+            Route::get('/user','getUser');
+            Route::post('/addUsers','addUsers');
+            Route::post('/deleteUser/{id}','deleteUser');
         });
         Route::controller(ProductController::class)->group(function(){
             Route::get('/product','product');

@@ -109,8 +109,6 @@
             </div>
         </div>
     </div>
-
-
     <style>
         /* If other layout elements create stacking contexts, the modal can appear underneath.
            Force higher z-index as a safe fallback. */
@@ -172,7 +170,6 @@
                 $('#sub_title').val(sub_title);
                 $('#price').val(price);
                 $('#description').val(description);
-                
                 $('#productForm').attr('action',`{{url('/dashboard/editProduct/${id}')}}`);
             })
         })

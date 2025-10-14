@@ -32,7 +32,6 @@ class UserController extends Controller
     public function login(Request $req){
         $email=$req->email;
         $password=$req->password;
-        
         if(Auth::attempt(['email'=>$email,'password'=>$password])){
             if(Auth::user()->role==0){
                 return redirect('/');
@@ -41,4 +40,26 @@ class UserController extends Controller
             }
         }
     }
+    public function getUser(){
+        $data=User::query()->get();
+        return view('dashboard.user',compact('data'));
+    }
+     public function addUsers(Request $req){
+        $data=$req->validate([
+            'name'=>'required|string',
+            'email'=>'required',
+            'password'=>'required|min:6'
+        ]);
+        $data['password']=Hash::make($req->password);
+        User::create($data);
+        return redirect('/dashboard/user');
+    }
+    public function deleteUser($id){
+        $user=User::find($id);
+        
+        if($user->delete()){
+            return redirect('/dashboard/user');
+        }
+    }
+    
 }
