@@ -9,7 +9,7 @@
         <div class="data-card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Recent Orders</h5>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" id="add" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="bi bi-plus-circle me-1"></i> Add User
                 </button>
             </div>
@@ -36,8 +36,13 @@
                             <td>{{$data->description }}</td>
                             <td><img src="{{$data->image}}" alt="" width="60px" height="60px" class="rounded-circle"></td>
                             <td>
-                                <button class="btn btn-danger" type="submit">Delete</button>
-                                <button class="btn btn-warning" type="submit">Edit</button>
+                                <div class="d-flex gap-2">
+                                    <form action="{{url('/dashboard/delete/'.$data->id.'')}}" method="post">
+                                        @csrf
+                                        <button class="btn btn-danger" type="submit" onclick="return confirm('Wanna delete?')">Delete</button>
+                                    </form>
+                                    <button class="btn btn-warning"  data-bs-toggle="modal" data-bs-target="#exampleModal" id="edit" type="submit">Edit</button>
+                                </div>
                             </td>
                         </tr>
                         @endforeach
@@ -47,7 +52,6 @@
         </div>
     </div>
     <!-- Button trigger modal -->
-
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -61,12 +65,11 @@
                         </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-
                     <div class="modal-body px-4 py-4">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="name" class="form-label text-dark fw-semibold">Product title</label>
-                                <input type="text" class="form-control rounded-3" id="name" name="title" placeholder="Enter product title">
+                                <input type="text" class="form-control rounded-3" id="title" name="title" placeholder="Enter product title">
                             </div>
                             <div class="col-md-6">
                                 <label for="sku" class="form-label text-dark fw-semibold">Sub-title</label>
@@ -94,6 +97,9 @@
                         <div class="modal-footer border-0 px-4 pb-4">
                             <button type="button" class="btn btn-light border rounded-3 px-4" data-bs-dismiss="modal">
                                 <i class="bi bi-x-circle me-1"></i> Close
+                            </button>
+                            <button type="submit" id="update" class="btn btn-warning rounded-3 px-4">
+                                Edit
                             </button>
                             <button type="submit" id="saveProductBtn" class="btn btn-dark rounded-3 px-4">
                                 <i class="bi bi-save2 me-1"></i> Save changes
@@ -143,6 +149,32 @@
             });
         })();
     </script>
-
+    <script>
+        $(document).ready(function(){
+            $('#add').click(function(){
+                $('#update').hide();
+                $('#saveProductBtn').show();
+                $('#exampleModalLabel').text('Add Product');
+                $('#productForm')[0].reset();
+                $('#productForm').attr('action',"{{url('/dashboard/addProduct')}}");
+            })
+            $('#edit').click(function(){
+                $('#update').show();
+                $('#saveProductBtn').hide();
+                $('#exampleModalLabel').text('Edit Product');
+                const row=$(this).closest('tr');
+                const id=row.find('td:eq(0)').text().trim();
+                const title=row.find('td:eq(1)').text().trim();
+                const sub_title=row.find('td:eq(2)').text().trim();
+                const price=row.find('td:eq(3)').text().trim();
+                const description=row.find('td:eq(4)').text().trim();
+                $('#title').val(title);
+                $('#sub_title').val(sub_title);
+                $('#price').val(price);
+                $('#description').val(description);
+                $('#productForm').attr('action',`{{url('/dashboard/editProduct/${id}')}}`);
+            })
+        })
+    </script>
 </div>
 @endsection
