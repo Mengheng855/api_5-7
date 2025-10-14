@@ -172,6 +172,7 @@
                 $('#sub_title').val(sub_title);
                 $('#price').val(price);
                 $('#description').val(description);
+                
                 $('#productForm').attr('action',`{{url('/dashboard/editProduct/${id}')}}`);
             })
         })
