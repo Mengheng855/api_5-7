@@ -61,5 +61,26 @@ class UserController extends Controller
             return redirect('/dashboard/user');
         }
     }
+    public function editUser(Request $req,$id){
+        $editUser=User::find($id);
+        if($editUser){
+            $data=$req->validate([
+                'name'=>'required|string',
+                'email'=>'required',
+                'role' => 'integer|in:0,1',
+            ]);
+            
+            $data['password']=Hash::make($req->password);
+            $editUser->update($data);
+            if($editUser){
+                return redirect('/dashboard/user');
+            }
+        }
+
+    }
+    public function logout(){
+        Auth::logout();
+        return redirect('/');
+    }
     
 }

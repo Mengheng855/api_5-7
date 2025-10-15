@@ -22,9 +22,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('user.user');
-});
+Route::get('/',[ProductController::class,'getPro']);
 Route::middleware('auth')->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::get('/admin', function () {
@@ -34,6 +32,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/user','getUser');
             Route::post('/addUsers','addUsers');
             Route::post('/deleteUser/{id}','deleteUser');
+            Route::post('/editUser/{id}','editUser');
         });
         Route::controller(ProductController::class)->group(function(){
             Route::get('/product','product');
@@ -50,6 +49,7 @@ Route::controller(UserController::class)->group(function(){
         Route::post('/addUser','addUser');
         Route::get('/showLogin','showLogin')->name('login');
         Route::post('/login','login');
+        Route::post('/logout','logout');
     });
 });
 

@@ -61,5 +61,10 @@ class ProductController extends Controller
                 return redirect('/dashboard/product');
             }
         }
+    
+    }
+    public function getPro(){
+        $getPro=Product::query()->get();
+        return view('user.user',compact('getPro'));
     }
 }
